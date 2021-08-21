@@ -35,3 +35,7 @@ cmake-build-debug/
 .vs/
 out/
 /CMakeSettings.json
+Glitter/Shaders/terrainfrag.glsl
+Glitter/Shaders/terrainTCS.glsl
+Glitter/Shaders/terrainTES.glsl
+Glitter/Shaders/terrainVert.GLSL

@@ -27,6 +27,8 @@ else()
     endif()
 endif()
 
+file(COPY Glitter/Resources DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
+
 include_directories(Glitter/Headers/
 #                    Glitter/Vendor/assimp/include/
 #                    Glitter/Vendor/bullet/src/
@@ -59,7 +61,15 @@ add_definitions(-DGLFW_INCLUDE_NONE
                 -DPROJECT_SOURCE_DIR=\"${PROJECT_SOURCE_DIR}\")
 add_executable(${PROJECT_NAME} ${PROJECT_SOURCES} ${PROJECT_HEADERS}
                                ${PROJECT_SHADERS} ${PROJECT_CONFIGS}
-                               ${VENDORS_SOURCES} Glitter/Sources/EZR_Shader/ezr_shader.cpp Glitter/Sources/EZR_Shader/ezr_shader.h Glitter/Sources/EZR_Shader/ezr_ssbo.h Glitter/Sources/EZR_Shader/ezr_computeShader.h Glitter/Sources/GUI/GUI.cpp Glitter/Sources/GUI/include/GUI.h Glitter/Sources/GUI/include/camera.h Glitter/Sources/GUI/Window.cpp Glitter/Sources/GUI/include/Window.h Glitter/Sources/GUI/baseObject.cpp Glitter/Sources/GUI/include/baseObject.h Glitter/Sources/GUI/include/sceneInfo.h Glitter/Sources/GUI/exampleObject.cpp Glitter/Sources/GUI/include/exampleObject.h)
+
+                               ${VENDORS_SOURCES} Glitter/Sources/EZR_Shader/ezr_shader.cpp
+                                Glitter/Headers/ezr_shader.h Glitter/Sources/EZR_Shader/ezr_ssbo.h Glitter/Headers/ezr_computeShader.h
+                                Glitter/Sources/GUI/GUI.cpp Glitter/Sources/GUI/include/GUI.h Glitter/Sources/GUI/include/camera.h Glitter/Sources/GUI/Window.cpp
+                                Glitter/Sources/GUI/include/Window.h Glitter/Sources/GUI/baseObject.cpp Glitter/Sources/GUI/include/baseObject.h Glitter/Sources/GUI/include/sceneInfo.h
+                                Glitter/Sources/GUI/exampleObject.cpp Glitter/Sources/GUI/include/exampleObject.h Glitter/Sources/TextureDebug.cpp Glitter/Headers/TextureDebug.h Glitter/Sources/Texture.cpp Glitter/Headers/Texture.h
+                                Glitter/Sources/Texture.cpp Glitter/Sources/ComputeShader.cpp Glitter/Headers/ComputeShader.h Glitter/Sources/Sky.cpp Glitter/Headers/Sky.h
+                                Glitter/Sources/EZR_Shader/ezr_shader.cpp Glitter/Sources/EZR_Shader/ezr_ssbo.h Glitter/Sources/GUI/GUI.cpp Glitter/Sources/GUI/include/GUI.h Glitter/Sources/GUI/include/camera.h Glitter/Sources/GUI/Window.cpp Glitter/Sources/GUI/include/Window.h Glitter/Sources/GUI/baseObject.cpp Glitter/Sources/GUI/include/baseObject.h Glitter/Sources/GUI/include/sceneInfo.h Glitter/Sources/GUI/exampleObject.cpp Glitter/Sources/GUI/include/exampleObject.h Glitter/Sources/Terrain.cpp Glitter/Headers/Terrain.h Glitter/Sources/Chunk.cpp Glitter/Headers/Chunk.h Glitter/Headers/Vertex.h Glitter/Headers/cmpVecs.h Glitter/Headers/Texture.h Glitter/Sources/Texture.cpp Glitter/Sources/utils.cpp Glitter/Headers/ScreenQuad.h Glitter/Sources/ScreenQuad.cpp Glitter/Sources/frameBufferObject.cpp Glitter/Headers/frameBufferObject.h Glitter/Headers/TextureDebug.h Glitter/Sources/TextureDebug.cpp)
+
 target_link_libraries(${PROJECT_NAME}
 #        assimp
         glfw

@@ -34,17 +34,15 @@ void GUI::draw()
     ImGui::TextColored(ImVec4(1, 1, 0, 1), "Other controls");
     if (ImGui::DragFloat3("Light Position", &scene.lightDir[0], 0.01, -1.0, 1.0)) {
         auto saturate = [](float v) { return std::min(std::max(v, 0.0f), 0.8f); };
+
         scene.lightDir.y = saturate(scene.lightDir.y);
-        //skybox.update();
+
     }
 
     ImGui::InputFloat3("Camera Position", &(scene.cam->Position[0]), 7);
     ImGui::ColorEdit3("Light color", (float*)&scene.lightColor);
     ImGui::ColorEdit3("Fog color", (float*)&scene.fogColor);
     ImGui::SliderFloat("Camera speed", &scene.cam->MovementSpeed, 0.0, SPEED*3.0);
-
-
-
 
     ImGui::Checkbox("Wireframe mode", &scene.wireframe);
 
@@ -54,6 +52,7 @@ void GUI::draw()
     //actual drawing
     ImGui::Render();
     ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+
 }
 
 void GUI::update()

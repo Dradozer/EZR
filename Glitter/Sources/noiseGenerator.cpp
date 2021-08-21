@@ -1,52 +1,38 @@
-#include "noiseGenerator.h"
+#include "NoiseGenerator.h"
 
-noiseGenerator::noiseGenerator() {
-	noiseEngine = new FastNoise();
-	noiseEngine->SetNoiseType(FastNoise::Perlin);
+NoiseGenerator::NoiseGenerator() {
+
+    this->SetNoiseType(FastNoise::Perlin);
 }
 
-noiseGenerator::~noiseGenerator() {
-	delete noiseEngine;
+NoiseGenerator::~NoiseGenerator() {
+	delete this;
 }
 
-GLuint noiseGenerator::noiseTexture2D(unsigned int dimension) {
+std::vector<std::vector<float>> NoiseGenerator::noiseVector2D(unsigned int dimension, bool invert) {
 
-	GLuint textureID;
-	float value; 
+	std::vector<std::vector<float>> noiseVector(dimension, std::vector<float>(dimension));
 
-	glGenTextures(1, &textureID);
-	glBindTexture(GL_TEXTURE_2D, textureID);
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_R32F, dimension, dimension, 0, GL_RED, GL_FLOAT, NULL);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 	for (int y = 0; y < dimension; y++) {
 		for (int x = 0; x < dimension; x++) {
-			value = noiseEngine->GetNoise(x, y);
-			glTexSubImage2D(GL_TEXTURE_2D, 0, x, y, 1, 1, GL_RED, GL_FLOAT, &value);
+			noiseVector[x][y] = (invert) ? 1 - this->GetNoise(x, y) : this->GetNoise(x, y);
 		}
 	}
-	glBindTexture(GL_TEXTURE_2D, 0);
-	return textureID;
+
+	return noiseVector;
 }
 
-GLuint noiseGenerator::noiseTexture3D(unsigned int dimension) {
+std::vector<std::vector<std::vector<float>>> NoiseGenerator::noiseVector3D(unsigned int dimension, bool invert) {
 
-	GLuint textureID;
-	float value;
+	std::vector<std::vector<std::vector<float>>> noiseVector(dimension, std::vector<std::vector<float>>(dimension,std:: vector<float>(dimension)));;
 
-	glGenTextures(1, &textureID);
-	glBindTexture(GL_TEXTURE_3D, textureID);
-	glTexImage3D(GL_TEXTURE_3D, 0, GL_R32F, dimension, dimension, dimension, 0, GL_RED, GL_FLOAT, NULL);
-	glTexParameteri(GL_TEXTURE_3D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-	glTexParameteri(GL_TEXTURE_3D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 	for (int z = 0; z < dimension; z++) {
 		for (int y = 0; y < dimension; y++) {
 			for (int x = 0; x < dimension; x++) {
-				value = noiseEngine->GetNoise(x, y, z);
-				glTexSubImage3D(GL_TEXTURE_3D, 0, x, y, z, 1, 1, 1, GL_RED, GL_FLOAT, &value);
+				noiseVector[x][y][z] = (invert) ? 1 - this->GetNoise(x, y, z) : this->GetNoise(x, y, z);
 			}
 		}
 	}
-	glBindTexture(GL_TEXTURE_3D, 0);
-	return textureID;
+
+	return noiseVector;
 }

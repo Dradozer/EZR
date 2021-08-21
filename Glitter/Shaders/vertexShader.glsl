@@ -3,16 +3,15 @@
  * 1 VertexShader
  */
 in layout (location = 0) vec4 position;
-in layout (location = 1) vec4 normal;
 
+uniform mat4 viewMatrix;
+uniform mat4 projMatrix;
 uniform vec3 cameraPos;
-uniform vec3 lightPos;
 
-out vec4 passPosition_c;
-out vec4 passNormal_c;
+out vec4 pos;
 
 void main()
 {
-    passPosition_c = position;
-    passNormal_c = normal;
+    vec4 viewPos = viewMatrix * vec4(position.xyz, 1.0);
+    gl_Position = projMatrix * viewPos;
 }

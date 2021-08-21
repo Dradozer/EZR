@@ -9,6 +9,8 @@
 #include "Vertex.h"
 #include <vector>
 #include "noiseGenerator.h"
+#include <glm/gtc/quaternion.hpp>
+#include <glm/gtx/quaternion.hpp>
 
 #include <random>
 
@@ -61,6 +63,8 @@ private:
      */
     void calcIndices();
 
+
+    void calcTexCoords();
     int m_maxYValue;
     int m_x, m_z;
     int m_offsetX, m_offsetZ;

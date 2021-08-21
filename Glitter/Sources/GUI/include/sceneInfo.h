@@ -7,12 +7,15 @@
 
 #include "camera.h"
 #include <glm/glm.hpp>
+#include <frameBufferObject.h>
 
 struct sceneInfo{
-    glm::vec3 lightPos, lightColor, lightDir, fogColor, seed;
+    glm::vec3 lightPos, lightColor, lightDir, fogColor, seed, rockColor;
+    glm::vec2 resolution;
     glm::mat4 projMatrix;
     Camera * cam;
-    //FrameBufferObject * sceneFBO;
+    frameBufferObject * sceneFBO;
     bool wireframe = false;
+
 };
 #endif //GLITTER_SCENEINFO_H

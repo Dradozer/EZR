@@ -10,12 +10,12 @@
 struct Vertex {
     glm::vec3 Position;
     glm::vec3 Normal;
-    glm::vec2 TexCoords;
-    Vertex(glm::vec3 position, glm::vec3 normal, glm::vec2 texCoords)
+    glm::vec2 UVCoords;
+    Vertex(glm::vec3 position, glm::vec3 normal, glm::vec2 uvCoords)
     {
         Position = position;
         Normal = normal;
-        TexCoords = texCoords;
+        UVCoords = uvCoords;
     }
 };
 

@@ -26,8 +26,6 @@ Chunk::~Chunk()
 
 void Chunk::gen()
 {
-//    Vertex *m_tessVertices = new Vertex[m_vertexCount];
-
     genVertex();
 
     calcIndices();
@@ -57,6 +55,9 @@ void Chunk::setupMesh()
     glEnableVertexAttribArray(1);
     glVertexAttribPointer(1, 4, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void *) offsetof(Vertex, Normal));
 
+    glEnableVertexAttribArray(2);
+    glVertexAttribPointer(2, 4, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void *) offsetof(Vertex, UVCoords));
+
     glBindVertexArray(0);
 }
 
@@ -77,15 +78,14 @@ void Chunk::genVertex()
     {
         for (int z = 0; z < m_patchSize; z++)
         {
-//    Vertex temp = Vertex(glm::vec3(x , m_noise->GetNoise(x,z) * m_maxYValue, z), glm::vec3(0, 0, 0), glm::vec2(0, 0));
+//        Vertex temp = Vertex(glm::vec3(x , m_noise->GetNoise(x,z) * m_maxYValue, z), glm::vec3(0, 0, 0), glm::vec2(0, 0));
             m_vertices.push_back(
                     Vertex(glm::vec3(m_chunkSizeMult * x + m_offsetX, m_noise->GetNoise(m_chunkSizeMult * x + m_offsetX,
                                                                                         m_chunkSizeMult * z +
                                                                                         m_offsetZ) * m_maxYValue,
-                                     m_chunkSizeMult * z + m_offsetZ), glm::vec3(0, 0, 0), glm::vec2(0, 0)));
+                                     m_chunkSizeMult * z + m_offsetZ), glm::vec3(0, 0, 0), glm::vec2((float)z/m_patchSize-1, (float)x/m_patchSize-1)));
         }
     }
-//    std::cout << "vert bla " << m_vertices.size() << std::endl;
     m_vertexCount = m_vertices.size();
 }
 

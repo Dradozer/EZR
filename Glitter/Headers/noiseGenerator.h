@@ -1,15 +1,16 @@
 #pragma once
 #include "glitter.hpp"
 #include "FastNoise.h"
+#include <vector>
 
-class noiseGenerator
+class NoiseGenerator : public FastNoise
 {
 public:
-	noiseGenerator();
-	~noiseGenerator();
-	GLuint noiseTexture2D(unsigned int dimension);
-	GLuint noiseTexture3D(unsigned int dimension);
-	FastNoise* noiseEngine;
+	NoiseGenerator();
+	~NoiseGenerator();
+	std::vector<std::vector<float>> noiseVector2D(unsigned int dimension, bool invert = false);
+	std::vector<std::vector<std::vector<float>>> noiseVector3D(unsigned int dimension, bool invert = false);
+	//FastNoise* noiseEngine;
 private:
 
 };
